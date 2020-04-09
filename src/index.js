@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", (event => {
 
     function buyTicket(card) {
         let description = card.querySelector(".description")
+
         let config = {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
@@ -30,6 +31,10 @@ document.addEventListener("DOMContentLoaded", (event => {
 
         card.dataset.tickets -= 1
         description.innerText = `${card.dataset.tickets} remaining tickets`
+        if (parseInt(card.dataset.tickets) === 0) {
+            console.dir(card.getElementsByClassName("ui blue button")[0])
+            card.getElementsByClassName("ui blue button")[0].innerHTML = `<div>Sold out!</div>`
+        }
     }
 
     function fetchTheaters() {
@@ -67,5 +72,10 @@ document.addEventListener("DOMContentLoaded", (event => {
             </div>
         `
         showings.append(cardDiv)
+        console.log()
+        if (parseInt(cardDiv.dataset.tickets) === 0) {
+            console.dir(cardDiv.getElementsByClassName("ui blue button")[0])
+            cardDiv.getElementsByClassName("ui blue button")[0].innerHTML = `<div>Sold out!</div>`
+        }
     }
 }))
