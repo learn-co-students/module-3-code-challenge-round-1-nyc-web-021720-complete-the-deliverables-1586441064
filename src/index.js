@@ -1,7 +1,6 @@
 const theatreId = 366
 
-const showings = document.querySelector('.ui cards showings')
-
+const showings = document.querySelector('.showings')
 
 
 fetch(` https://evening-plateau-54365.herokuapp.com/theatres/${theatreId}`)
@@ -13,7 +12,8 @@ const renderShows = ticket => {
 }
 
 const renderShow = show => {
-  console.log(show)
+  //console.log(show)
+  let remainingTix = ticketsRemaining(show)
   let showCardDiv = document.createElement('div')
   showCardDiv.className = 'card'
   showCardDiv.innerHTML = `
@@ -25,14 +25,31 @@ const renderShow = show => {
     ${show.film.runtime} minutes
   </div>
   <div class="description">
-    ${} remaining tickets
+    ${remainingTix} remaining tickets
   </div>
   <span class="ui label">
-    (Showtime)
+    ${show.showtime}
   </span>
   </div>
   <div class="extra content">
-  <div class="ui blue button">Buy Ticket</div>
+  <div id="button" class="ui blue button">Buy Ticket</div>
   </div>
   `
+  showings.append(showCardDiv)
 }
+
+const ticketsRemaining = show => {
+  console.log(show)
+  return (parseInt(show.capacity) - parseInt(show.tickets_sold))
+}
+
+//const buyTixBtn = document.getElementById('#button')
+showings.addEventListener('click', event => {
+  if (event.target.id === 'button') {
+    
+    let ticketAmt = ticketsRemaining()
+    console.log(ticketAmt)
+  }
+})
+
+
