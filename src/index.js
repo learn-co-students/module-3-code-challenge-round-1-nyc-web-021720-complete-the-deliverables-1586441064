@@ -12,20 +12,22 @@ fetch ('https://evening-plateau-54365.herokuapp.com/theatres/371')
 .then (r => r.json())
 .then (showings => {
 // 
-    let movieShowingsHTML = `
+    let movieShowingsHTML = showings.map(function(show){
+
+  return  `
     <div class="card">
   <div class="content">
     <div class="header">
-     <h2>${showings.title}</h2>
+     <h2>${show.title}</h2>
     </div>
     <div class="meta">
-      <h2>${showings.runtime}</h2>
+      <h2>${show.runtime}</h2>
     </div>
     <div class="description">
-      <h2>${showings.capacity}</h2>
+      <h2>${show.capacity}</h2>
     </div>
     <span class="ui label">
-      <li>${showings.showtime}</li>
+      <li>${show.showtime}</li>
     </span>
   </div>
   <div class="extra content">
@@ -34,16 +36,12 @@ fetch ('https://evening-plateau-54365.herokuapp.com/theatres/371')
 </div>
    
  `
- document.querySelector('#ui cards showings').innerHTML +=
- movieShowingsHTML
 })
+ document.querySelector("#ui cards showings").innerHTML +=
+ movieShowingsHTML
 
 
-
-
-
-
-
+})
 
 
 
