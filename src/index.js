@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 //fetch list of movies from URL
 //render list
 //add event listeners for buy button
+//create post when creating a ticket
 
     getData = () => {
         fetch(URL)
