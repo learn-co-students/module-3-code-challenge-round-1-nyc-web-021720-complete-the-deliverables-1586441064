@@ -5,7 +5,8 @@
 //when tickets are sold out, disable buy ticket button
 // buy ticket button.textContent should be 'sold out'
 const theatreId = 'https://evening-plateau-54365.herokuapp.com/theatres/367' ;
-
+const showCards = document.querySelector('.ui-cards-showings')
+console.log(showCards)
 document.addEventListener('DOMContentLoaded', () =>{
     fetchShows(theatreId)
 
@@ -20,8 +21,37 @@ function fetchShows(url){
         .then(res => res.json())
         .then(object => {
             object.showings.forEach(showing => {
-                renderShow()
+                renderShow(showing)
+                // console.log(showing)
             })
         })
+}
+
+function renderShow(showing){
+    let showCard = document.createElement('div')
+
+    let remainTickets = showing.capacity - showing['tickets_sold']
+    showCard.className = 'card'
+    showCard.innerHTML = `
+        <div class="content">
+            <div class="header">
+                ${showing.film['title']}
+            </div>
+            <div class="meta">
+                ${showing.film['runtime']}
+            </div>
+            <div class="description">
+                ${remainTickets}
+            </div>
+            <span class="ui label">
+                ${showing.showtime}
+            </span>
+        </div>
+        <div class="extra content">
+            <div class="ui blue button">Buy Ticket</div>
+        </div>
+    `
+    showCards.append(showCard)
+
 }
 
