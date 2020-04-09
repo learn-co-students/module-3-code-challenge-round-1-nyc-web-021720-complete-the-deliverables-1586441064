@@ -2,6 +2,7 @@
 const theatreId = 372;
 const BASE_URL = "https://evening-plateau-54365.herokuapp.com/";
 const THEATRE_URL = `${BASE_URL}theatres/${theatreId}`;
+const TICKETS_URL = `${BASE_URL}tickets`;
 
 //dom manipulation constants
 const movieShowDiv = document.querySelector(`.cards`);
@@ -11,9 +12,9 @@ getShowings().then((movies) => movies.showings.forEach(displayMovieShowings));
 
 //gets the theatere object from the specified url.
 function getShowings() {
-  return fetch(THEATRE_URL).then((res) =>
-    res.json().catch((error) => console.log(error))
-  );
+  return fetch(THEATRE_URL)
+    .then((res) => res.json())
+    .catch((error) => console.log(error));
 }
 
 function displayMovieShowings(movie) {
@@ -38,7 +39,8 @@ function displayMovieShowings(movie) {
   //div for desription
   const showNumOfTickets = document.createElement("div");
   showNumOfTickets.className = "description";
-  let remainingTickets = movie.capacity - movie.ticketsSold;
+  let remainingTickets =
+    parseInt(movie.capacity) - parseInt(movie.tickets_sold);
   showNumOfTickets.innerText = `${remainingTickets} remaining tickets`;
 
   //span for ui label
@@ -64,7 +66,7 @@ function displayMovieShowings(movie) {
   buyButton.innerText = "Buy Ticket";
   //adding functionality to buyButton
   buyButton.addEventListener("click", (e) => {
-    console.log();
+    buyTicket(movie.id);
   });
 
   //append button to extra content
@@ -75,14 +77,22 @@ function displayMovieShowings(movie) {
   movieShowDiv.appendChild(showCard);
 }
 
-function buyTicket(e) {
-	const movieId = e.dataset
-	fetch(THEATRE_URL, {
-		method: 'POST',
-		headers: {
-			`Content-Type`: `application/json`,
-			`Accepts`: `application/json`
-		},
-		body: json.stringify({})
-	})
+//Get ticket id
+function createTicket(movieId) {
+  fetch(TICKETS_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": `application/json`,
+      Accepts: `application/json`,
+    },
+    body: JSON.stringify({ showing_id: movieId }),
+  })
+    .then((res) => res.json())
+    .then((res) => console.log(res))
+    .catch((error) => console.log(error));
+}
+
+//Buy tickets
+function buyTicket(movieId) {
+  createTicket(movieId);
 }
