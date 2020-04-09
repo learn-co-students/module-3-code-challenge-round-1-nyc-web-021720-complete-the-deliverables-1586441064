@@ -1,6 +1,7 @@
 const theatreId = 363;
 const THEATRES_URL = "https://evening-plateau-54365.herokuapp.com/theatres/363";
-const moviesBody = document.querySelector("#ui cards showings");
+const moviesBody = document.querySelector(".showings");
+
 function fetchMovies() {
 	return fetch(THEATRES_URL)
 		.then((response) => response.json())
@@ -38,6 +39,25 @@ function renderMovie(movie) {
         </div>
     `;
 	moviesBody.appendChild(movieCard);
+}
+document.addEventListener("click", function (event) {
+	if (event.target.className === "ui blue bttn") {
+		console.log(event.target.parentNode);
+		let parent = event.target.parentNode;
+		let id = parent.dataset.id;
+		console.log(parent);
+	}
+});
+
+function getTicket(ticket) {
+	return fetch("https://evening-plateau-54365.herokuapp.com/tickets", {
+		method: "PATCH",
+		headers: {
+			"Content-Type": "application/json",
+			accept: "application/json",
+		},
+		body: JSON.stringify({ ticket }),
+	}).then((response) => response.json());
 }
 
 fetchMovies();
