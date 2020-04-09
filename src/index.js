@@ -60,11 +60,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const ticketCounter = card.querySelector(".tickets-remaining")
         if (ticketCounter.innerText == 0) {
             button.outerHTML = "SOLD OUT!!"
+            
         }
       button.addEventListener("click", function() {
           ticketCounter.innerText = ticketCounter.innerText - 1 
           if (ticketCounter.innerText == 0) {
             button.outerHTML = "SOLD OUT!!"
+            alert("SOLD OUT!"); //incremented pop-up alert when movie is sold out
       }
     createTicket(id)
     })
