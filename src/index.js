@@ -17,6 +17,7 @@ function getShowings() {
     .catch((error) => console.log(error));
 }
 
+//Display the movie showings as cards in the movie show div
 function displayMovieShowings(movie) {
   //card to hold showing information
   const showCard = document.createElement("div");
@@ -63,12 +64,14 @@ function displayMovieShowings(movie) {
   //buy button div
   const buyButton = document.createElement("div");
   buyButton.className = "ui blue button";
+  //If tickets are available activate button
   if (remainingTickets > 0) {
     buyButton.innerText = "Buy Ticket";
     //adding functionality to buyButton
     buyButton.addEventListener("click", (e) => {
       buyTicket(movie.id);
     });
+    //style and deactivate the button if the movie is sold out
   } else {
     buyButton.innerText = "Sold Out";
     buyButton.style.backgroundColor = "white";
@@ -83,8 +86,8 @@ function displayMovieShowings(movie) {
   movieShowDiv.appendChild(showCard);
 }
 
-//Get ticket id
-function createTicket(movieId) {
+//Buy ticket
+function buyTicket(movieId) {
   fetch(TICKETS_URL, {
     method: "POST",
     headers: {
@@ -96,9 +99,4 @@ function createTicket(movieId) {
     .then((res) => res.json())
     .then((res) => console.log(res))
     .catch((error) => console.log(error));
-}
-
-//Buy tickets
-function buyTicket(movieId) {
-  createTicket(movieId);
 }
