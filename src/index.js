@@ -8,8 +8,29 @@ document.addEventListener("DOMContentLoaded", (event => {
     document.addEventListener("click", (event) => {
         if (event.target.innerText === "Buy Ticket") {
             console.log(event.target.parentNode.parentNode)
+            let card = event.target.parentNode.parentNode
+            buyTicket(card)
+
         }
     })
+
+    function buyTicket(card) {
+        let description = card.querySelector(".description")
+        let config = {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+        fetch("https://evening-plateau-54365.herokuapp.com/tickets", {
+            method: "POST",
+            headers: config,
+            body: JSON.stringify({ "showing_id": card.dataset.id })
+        })
+            .then(resp => resp.json())
+            .then(data => console.log(data))
+
+        card.dataset.tickets -= 1
+        description.innerText = `${card.dataset.tickets} remaining tickets`
+    }
 
     function fetchTheaters() {
         fetch(THEATERS_LINK)
@@ -24,6 +45,7 @@ document.addEventListener("DOMContentLoaded", (event => {
         let cardDiv = document.createElement("div")
         cardDiv.setAttribute("class", "card")
         cardDiv.dataset.id = theater.id
+        cardDiv.dataset.tickets = theater.capacity - theater.tickets_sold
 
         cardDiv.innerHTML = `
             <div class="content">
