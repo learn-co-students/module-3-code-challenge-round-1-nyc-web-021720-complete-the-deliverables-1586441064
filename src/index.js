@@ -61,7 +61,6 @@ const movieList = document.querySelector('.showings')
     }
 
     function updateTicket(id,val){
-        let less = event.parentNode.parentNode.querySelector('.description').innerHTML--
         let obj = {
             method: "PATCH",
             headers: {    
@@ -71,14 +70,14 @@ const movieList = document.querySelector('.showings')
            
             },    
             body: JSON.stringify({     
-              "capacity": less    
+              "capacity": val    
             })
 
         }
         
         
         
-        fetch(THEATRES_URL+"/"+id , obj )
+        fetch(THEATRES_URL+"/"+parseInt(id) , obj )
         .then(res => res.json())
         .then(function(data){
             
