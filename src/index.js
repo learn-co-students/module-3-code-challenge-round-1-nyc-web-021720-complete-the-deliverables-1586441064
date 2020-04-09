@@ -5,6 +5,12 @@ document.addEventListener("DOMContentLoaded", (event => {
 
     fetchTheaters()
 
+    document.addEventListener("click", (event) => {
+        if (event.target.innerText === "Buy Ticket") {
+            console.log(event.target.parentNode.parentNode)
+        }
+    })
+
     function fetchTheaters() {
         fetch(THEATERS_LINK)
             .then(resp => resp.json())
@@ -16,10 +22,10 @@ document.addEventListener("DOMContentLoaded", (event => {
     function renderTheater(theater) {
         let showings = document.getElementsByClassName("ui cards showings")[0]
         let cardDiv = document.createElement("div")
+        cardDiv.setAttribute("class", "card")
+        cardDiv.dataset.id = theater.id
 
-        console.log(showings)
         cardDiv.innerHTML = `
-        <div class="card">
             <div class="content">
                 <div class="header">
                 ${theater.film.title}
@@ -37,7 +43,6 @@ document.addEventListener("DOMContentLoaded", (event => {
             <div class="extra content">
             <div class="ui blue button">Buy Ticket</div>
             </div>
-        </div>
         `
         showings.append(cardDiv)
     }
