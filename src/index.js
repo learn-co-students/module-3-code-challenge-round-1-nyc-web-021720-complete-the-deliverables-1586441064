@@ -44,7 +44,7 @@ function fetchShowtimes() {
     fetch(showtimesUrl)
         .then(response => response.json())
         .then(showtimes => 
-            showtimes.forEach(
+            showtimes.showings.forEach(
                 (showtime) => {
                     let li = renderShowtime(showtime)
                     showtimesDiv.append(li)
@@ -52,24 +52,23 @@ function fetchShowtimes() {
 )}
 
 function renderShowtime(showtime) { 
-    let showtimeCard = document.createElement("div")
+    let showtimeCard = document.createElement("li")
     showtimeCard.className = "card"
-    console.log(showtime)
     
     showtimeCard.innerHTML = `
         <div class="card">
             <div class="content">
                 <div class="header">
-                    ${showtime.name}
+                    ${showtime.film.title}
                 </div>
                 <div class="meta">
-                    (Runtime) minutes
+                    ${showtime.film.runtime} minutes
                 </div>
                 <div class="description">
-                    (Num Tickets) remaining tickets
+                    ${(showtime.capacity) - (showtime.tickets_sold)} remaining tickets
                 </div>
                 <span class="ui label">
-                    (Showtime)
+                    ${showtime.showtime}
                 </span>
                 </div>
                 <div class="extra content">
@@ -77,4 +76,10 @@ function renderShowtime(showtime) {
             </div>
         </div> 
     `
+
+    let ul = document.createElement("ul")
+    ul.append(showtimeCard)
+    
+
+    return showtimeCard
 }
