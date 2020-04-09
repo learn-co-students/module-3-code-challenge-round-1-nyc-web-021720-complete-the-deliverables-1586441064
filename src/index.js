@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const showings = document.getElementsByClassName("ui cards showings")[0]
     
 
-    fetch('https://evening-plateau-54365.herokuapp.com/theatres/369')
+    fetch(`https://evening-plateau-54365.herokuapp.com/theatres/${theatreId}`)
     .then(response => {
         return response.json()
     })
@@ -19,20 +19,20 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target.textContent === 'Buy Ticket') {
             showingId = e.target.dataset.id
             
-            // fetch('https://evening-plateau-54365.herokuapp.com/tickets', {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //         'Accept': 'application/json'
-            //     },
-            //     body: JSON.stringify({showing_id: showingId})
-            // })
-            // .then(results => {
-            //     return results.json()
-            // })
-            // .then(newShowing => {
-            //     console.log(newShowing)
-            // })
+            fetch('https://evening-plateau-54365.herokuapp.com/tickets', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({showing_id: showingId})
+            })
+            .then(results => {
+                return results.json()
+            })
+            .then(newShowing => {
+                console.log(newShowing)
+            })
 
             
             remainingTicketsNode = e.target.parentNode.parentNode.childNodes[1].childNodes[5]
