@@ -6,7 +6,7 @@ const theatreUrl = 'https://evening-plateau-54365.herokuapp.com/theatres/364'
 
 const showings = document.getElementsByClassName('ui cards showings')[0]
 
-const ticketUrl = 'https://evening-plateau-54365.herokuapp.com/tickets'
+const ticketUrl = 'https://evening-plateau-54365.herokuapp.com/theatres/364/tickets'
 
 
 
@@ -21,7 +21,7 @@ getTheatre()
     renderShowings(theatre_obj)
 })
 
-
+// Short on time, could not figure out how to subtract API Objects (Capacity - tickets sold)
 
 function renderShowings(theatre){
 
@@ -55,18 +55,37 @@ function renderShowings(theatre){
     })    
 }
 
-function buyTicket(button){
-    let parent = button.parentNode
-    let id = parent.dataset.showingId
-    fetch(ticketUrl, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify({showing_id: showingId})
-    })
-}
+document.addEventListener('click', function(event){
+    if(event.target.className === 'ui blue button'){
+        buyTicket(event.target)
+    }
+
+    function buyTicket(button){
+        let parent = button.parentNode
+        let showingId = parent.dataset.showingId
+    // CANT FIGURE OUT THIS DAMN TICKET URL!!!!!!!
+        fetch(theatreUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({showing_id: showingId})
+        })
+    }
+})
+
+// I imagine the ticket API is a bunch of show objects with NESTED tickets
+// I would make a fetch DELETE request once I posted a new ticket object and then Delete ticket from API 
+// Then create an console.error for any shows that sold out of tickets 
+
+// UPDATE
+// Tried to use theatreUrl because I saw the tickets were nested within the showing object
+// recieved "POST 404 error (Not Found)"
+
+// Decrease ticket in DOM
+// grab innerText from DOM and assign to variable, decrement "--tickets"
+
 
 
 
