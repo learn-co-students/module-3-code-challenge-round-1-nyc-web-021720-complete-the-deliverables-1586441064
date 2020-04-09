@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded",function(e){
 
     fetchMovie();
 
-    buyticket()
+    buyticket();
 })
 
 
@@ -68,12 +68,19 @@ document.addEventListener("click",function(e){
         ticket--;
         remaining.innerText=`${ticket} remaining ticket(s)`
         
-        let id=e.target.parentNode.parentNode.dataset.id
+        let showing_id=e.target.parentNode.parentNode.dataset.id
+
+        // if(ticket<0){
+            // submit=disabled
+            // display"sold out"
+
+        // }
 
 
         // console.dir(remaining)
-        fetch(`https://evening-plateau-54365.herokuapp.com/theatres/${theatreId}/${id}`,{
-            method: "PATCH",
+        fetch(`https://evening-plateau-54365.herokuapp.com/ticekts/${showing_id}`,{
+            // should be PATCH
+            method: "POST",
             headers:{
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
@@ -89,6 +96,15 @@ document.addEventListener("click",function(e){
 
 
 
-function createtickets(){
-    
-}
+// function createtickets(){
+
+//     fetch(`https://evening-plateau-54365.herokuapp.com/ticekts/`,{
+//         method: "POST",
+//         headers:{
+//             'Content-Type': 'application/json',
+//             'Accept': 'application/json'
+//         },
+//         body: JSON.stringify({})
+
+//         })
+// }
