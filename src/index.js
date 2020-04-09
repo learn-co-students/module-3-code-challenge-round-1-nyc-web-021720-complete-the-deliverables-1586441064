@@ -8,24 +8,24 @@ const theatreId = 371;
 document.addEventListener('DOMContentLoaded', () => {
 console.log("We are connected!")
 
-fetch (`https://evening-plateau-54365.herokuapp.com/`)
-.then (r => (r.json()))
+fetch ('https://evening-plateau-54365.herokuapp.com/theatres/371')
+.then (r => r.json())
 .then (showings => {
-
-    let movieShowings = `
+// 
+    let movieShowingsHTML = `
     <div class="card">
   <div class="content">
     <div class="header">
-      (Film Title)
+     <h2>${showings.title}</h2>
     </div>
     <div class="meta">
-      (Runtime) minutes
+      <h2>${showings.runtime}</h2>
     </div>
     <div class="description">
-      (Num Tickets) remaining tickets
+      <h2>${showings.capacity}</h2>
     </div>
     <span class="ui label">
-      (Showtime)
+      <li>${showings.showtime}</li>
     </span>
   </div>
   <div class="extra content">
@@ -33,7 +33,9 @@ fetch (`https://evening-plateau-54365.herokuapp.com/`)
   </div>
 </div>
    
-    `
+ `
+ document.querySelector('#ui cards showings').innerHTML +=
+ movieShowingsHTML
 })
 
 
