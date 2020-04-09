@@ -6,6 +6,8 @@ const theatreUrl = 'https://evening-plateau-54365.herokuapp.com/theatres/364'
 
 const showings = document.getElementsByClassName('ui cards showings')[0]
 
+const ticketUrl = 'https://evening-plateau-54365.herokuapp.com/tickets'
+
 
 
 
@@ -16,31 +18,28 @@ function getTheatre(){
 
 getTheatre()
 .then((theatre_obj) => {
-    let flatironTheatre = renderTheatre(theatre_obj)
+    renderShowings(theatre_obj)
 })
 
-function renderTheatre(theatre){
 
-    const showingsCard = renderShowings(theatre)
 
-    showings.append(showingsCard)
+function renderShowings(theatre){
 
-    function renderShowings(theatre){
-
-    theatre.showings.forEach(showing => {
-        let divCard = document.createElement('div')
-        divCard.setAttribute('class', 'card')
-        
-        divCard.innerHTML = `
+    theatre.showings.map(showing => {
+    let div = document.createElement('div')
+    div.setAttribute('class', 'card')
+    div.dataset.showingId = showing.id
+    div.innerHTML = `
+    
         <div class="content">
             <div class="header">
-                ${showing.film.name}
+                ${showing.film.title}
             </div>
             <div class="meta">
                 ${showing.film.runtime}
             </div>
             <div class="description">
-                parseInt(${showing.capacity}) - parseInt(${showing.tickets_sold})
+                ${showing.capacity} - ${showing.tickets_sold}
             </div>
             <span class="ui label">
                 ${showing.showtime}
@@ -48,13 +47,29 @@ function renderTheatre(theatre){
         </div>
         <div class="extra content">
             <div class="ui blue button">Buy Ticket</div>
-        </div>`
-    })
+        </div>
+    `
 
-    }
+    showings.append(div)
 
-
+    })    
 }
+
+function buyTicket(button){
+    let parent = button.parentNode
+    let id = parent.dataset.showingId
+    fetch(ticketUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({showing_id: showingId})
+    })
+}
+
+
+
 
 
 
