@@ -1,9 +1,10 @@
 const theatreId = 360;
 
+let showArea = document.getElementsByClassName("showings")
+let displayArea = Array.from(showArea)
 document.addEventListener('DOMContentLoaded', (event) => {
     // console.log('DOM fully loaded and parsed');
-    let showArea = document.getElementsByClassName("showings")
-    console.dir(showArea)
+    console.dir(displayArea)
     // console.log(showArea)
     function doesMyFetch(){
         fetch('https://evening-plateau-54365.herokuapp.com/theatres/360')
@@ -13,7 +14,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         .then((theater) => {
             // console.log(theater.showings)
             theater.showings.forEach(showing => {
-                console.log(showing)
+                // console.log(showing)
                 let showingDiv = document.createElement('div')
                 showingDiv.dataset.showingId = showing.id
                 showingDiv.className = "card"
@@ -36,12 +37,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
     <div class="ui blue button">Buy Ticket</div>
   </div>
                 `
-                showArea.append(showingDiv)
-                
-
+                displayArea.push(showingDiv)
             });
             
         })
+
     }
     doesMyFetch()
 });
