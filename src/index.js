@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () =>{
             let showId = e.target.parentNode.parentNode.dataset.id
             let remainTickets = e.target.parentNode.parentNode.firstChild.nextElementSibling.firstChild.nextElementSibling.nextElementSibling.nextElementSibling
             remainTickets --
+            e.target.parentNode.parentNode.firstChild.nextElementSibling.firstChild.nextElementSibling.nextElementSibling.nextElementSibling = remainTickets
             fetch('https://evening-plateau-54365.herokuapp.com/tickets',{
                 method: 'POST',
                 headers: {
@@ -27,8 +28,13 @@ document.addEventListener('DOMContentLoaded', () =>{
                 })
                 
             })
+            if (remainTickets <= 0){
+                let buyBtn = document.querySelector('.ui.blue.button')
+                buyBtn.diabled = true
+                buyBtn.textContent = 'sold out'
+            }
         }
-        else if ()
+
             
     })
 
