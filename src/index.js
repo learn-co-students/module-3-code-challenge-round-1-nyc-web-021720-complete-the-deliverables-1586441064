@@ -1,6 +1,7 @@
 const theatreId = 360;
 
 let showArea = document.getElementsByClassName("showings")
+//showArea is an HTML Collection?? make it an array to push divs?
 let displayArea = Array.from(showArea)
 document.addEventListener('DOMContentLoaded', (event) => {
     
@@ -13,6 +14,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         .then((theater) => {
         //display sowings on page with necessary html elements/info
             theater.showings.forEach(showing => {
+                console.log(showing.id)
                 let showingDiv = document.createElement('div')
                 showingDiv.dataset.showingId = showing.id
                 showingDiv.className = "card"
@@ -25,10 +27,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         ${showing.film.runtime}
                     </div>
                     <div class="description">
-                        (${showing.film.capacity} - ${showing.film.tickets_sold})
+                        (${showing.capacity} - ${showing.tickets_sold})
                     </div>
                     <span class="ui label">
-                        ${showing.film.showtime}
+                        ${showing.showtime}
                     </span>
                     </div>
                     <div class="extra content">
