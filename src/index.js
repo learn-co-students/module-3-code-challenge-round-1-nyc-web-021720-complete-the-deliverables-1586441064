@@ -1,10 +1,26 @@
 const theatreId = 361;
 const url = "https://evening-plateau-54365.herokuapp.com/theatres/361"
-
+const tixUrl= "https://evening-plateau-54365.herokuapp.com/tickets"
 
 function getTheatre(){
     return fetch(url)
     .then(res => res.json())
+}
+
+function createTicket(showingId){
+    fetch(tixUrl,{
+        method: "POST",
+        headers:{ 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body:JSON.stringify({
+            "showing_id":showingId
+        })
+
+    })
+    .then(res=>res.json())
+    .then(json => console.log(json))
 }
 
 function renderShowings(theatre){
@@ -12,7 +28,7 @@ function renderShowings(theatre){
     const showingsDisplay = document.getElementsByClassName("ui cards showings")[0]
 
     showings.forEach(showing => {
-        const remainingTix =  showing.capacity - showing.tickets_sold
+        var remainingTix =  showing.capacity - showing.tickets_sold
 
         const showingCard = document.createElement('div')
         showingCard.className = "card"
@@ -44,6 +60,15 @@ function renderShowings(theatre){
         const buyTicketsButton = document.createElement('div')
         buyTicketsButton.className = "ui blue button"
         buyTicketsButton.textContent= "Buy Ticket"
+        buyTicketsButton.addEventListener("click",function(e){
+            e.preventDefault()
+            if (showing.tickets_sold<showing.capacity){
+                createTicket(showing.id)
+            }else{
+                buyTicketsButton.textContent= "Sold Out"
+            }
+            
+        })
 
         buyButtonDiv.appendChild(buyTicketsButton)
 
