@@ -3,6 +3,7 @@ const theatreId = 366
 const showings = document.querySelector('.showings')
 
 
+
 fetch(` https://evening-plateau-54365.herokuapp.com/theatres/${theatreId}`)
 .then(response => response.json())
 .then(ticket => renderShows(ticket))
@@ -16,6 +17,7 @@ const renderShow = show => {
   let remainingTix = ticketsRemaining(show)
   let showCardDiv = document.createElement('div')
   showCardDiv.className = 'card'
+  showCardDiv.dataset.id = show.id
   showCardDiv.innerHTML = `
   <div class="content">
   <div class="header">
@@ -24,7 +26,7 @@ const renderShow = show => {
   <div class="meta">
     ${show.film.runtime} minutes
   </div>
-  <div class="description">
+  <div id="${show.id}" class="description">
     ${remainingTix} remaining tickets
   </div>
   <span class="ui label">
@@ -36,25 +38,38 @@ const renderShow = show => {
   </div>
   `
   showings.append(showCardDiv)
+  getShowId(show.id)
+}
+
+const getShowId = showId => {
+  return showId
 }
 
 const ticketsRemaining = show => {
-  console.log(show)
   return (parseInt(show.capacity) - parseInt(show.tickets_sold))
 }
 
-//const buyTixBtn = document.getElementById('#button')
-document.addEventListener('click', event => {
+
+showings.addEventListener('click', event => {
   if (event.target.id === 'button') {
-    let description = 
+    let showId = event.target.parentNode.parentNode.dataset.id
+    let description = document.querySelector('.description')
     let ticketsAvailable = document.querySelector('.description').textContent
-    
     let ticketAmt = parseInt(ticketsAvailable)
-    .innerHTML = `${ticketAmt - 1}`
+    if (ticketAmt > 0) {
+      description.innerHTML = `${ticketAmt - 1} remaining tickets`
 
-
-    // let ticketAmt = ticketsRemaining()
-    // console.log(ticketAmt)
+      fetch("https://evening-plateau-54365.herokuapp.com/tickets", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        },
+        body: JSON.stringify({ showing_id: showId })
+      })
+    } else if (ticketAmt === 0) {
+      alert("That showing is sold out")
+    }
   }
 })
 
