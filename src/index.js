@@ -10,6 +10,10 @@ document.addEventListener('DOMContentLoaded', () => {
 //add event listeners for buy button
 //create post when creating a ticket
 
+    
+
+
+//getData is the function I will call when the DOMContent loads
     getData = () => {
         fetch(URL)
             .then(response => response.json())
