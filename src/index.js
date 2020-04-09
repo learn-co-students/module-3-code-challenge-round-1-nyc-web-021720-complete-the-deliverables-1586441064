@@ -1,4 +1,6 @@
 const theatreId = 371;
+const buyTicketBtn = document.querySelector('#ui blue button')
+
 //create fetch to render all movie showings when page load
 //add listening on to "buy ticket button" - decrement tickets by -1; should persis to remote api
 
@@ -11,10 +13,10 @@ console.log("We are connected!")
 fetch ('https://evening-plateau-54365.herokuapp.com/theatres/371')
 .then (r => r.json())
 .then (showings => {
-// 
-    let movieShowingsHTML = showings.map(function(show){
+//  console.log(showings)
+let movieShowingsHTML = showings.forEach (function(show) {
 
-  return  `
+  return `
     <div class="card">
   <div class="content">
     <div class="header">
@@ -42,7 +44,8 @@ fetch ('https://evening-plateau-54365.herokuapp.com/theatres/371')
 
 
 })
-
-
+buyTicketBtn.addEventListener('click', function(e){
+    console.log(e.target)
+})
 
 })
