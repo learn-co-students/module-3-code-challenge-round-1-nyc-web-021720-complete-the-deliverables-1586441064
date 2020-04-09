@@ -51,17 +51,17 @@ document.addEventListener('DOMContentLoaded', () => {
     newCard.className = "card"
     newCard.innerHTML = cardCode
     cardsElement.appendChild(newCard)
-    addButTicketListener(newCard, show.id)
+    addBuyTicketListener(newCard, show.id)
     }
 
-    function addButTicketListener(card, id) {
+    function addBuyTicketListener(card, id) {
         const button = card.querySelector(".button")
         const ticketCounter = card.querySelector(".tickets-remaining")
         if (ticketCounter.innerText == 0) {
             button.outerHTML = "SOLD OUT!!"
         }
       button.addEventListener("click", function() {
-          ticketCounter.innerText = tickeCounter.innerText -1
+          ticketCounter.innerText = ticketCounter.innerText - 1 
           if (ticketCounter.innerText == 0) {
             button.outerHTML = "SOLD OUT!!"
       }
