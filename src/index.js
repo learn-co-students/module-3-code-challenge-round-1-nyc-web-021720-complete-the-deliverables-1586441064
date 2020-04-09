@@ -34,6 +34,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log(newShowing)
             })
 
+            remainingTicketsNode = e.target.parentNode.parentNode.childNodes[1].childNodes[5]
+            text = remainingTicketsNode.textContent
+            ticketCount = parseInt(text)
+            ticketCount--
+
+            remainingTicketsNode.textContent = `${ticketCount} remaining tickets`
+
         }
     })
 
@@ -48,16 +55,16 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="card">
                 <div class="content">
                     <div class="header">
-                        (${showing.film.title})
+                        ${showing.film.title}
                     </div>
                     <div class="meta">
-                        (${showing.film.runtime}) minutes
+                        ${showing.film.runtime} minutes
                     </div>
                     <div class="description">
-                        (${numOfTickets}) remaining tickets
+                        ${numOfTickets} remaining tickets
                     </div>
                     <span class="ui label">
-                        (${showing.showtime})
+                        ${showing.showtime}
                     </span>
                     </div>
                     <div class="extra content">
