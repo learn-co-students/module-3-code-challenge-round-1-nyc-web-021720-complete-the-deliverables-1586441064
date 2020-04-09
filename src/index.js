@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let movieContainer = document.getElementsByClassName("showings")[0]
     //fetchMovies
-    console.log(movieContainer)
     fetchMovies()
 
     function fetchMovies() {
@@ -57,6 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
               </div>
             `
             movieContainer.appendChild(newMovie)
+            //checkSoldOut(movies)
             newMovie.addEventListener("click", handleClick)
         }
     }
@@ -71,18 +71,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateTickUI(resp){
         if (resp.error) {
-            console.log(resp)
-            }
+            console.log(error)
+        }
         else {
             let movies = document.querySelectorAll('.card')
             for (let movie of movies) {
-                if (resp.showing_id === movie.dataset.contentId) {
+                if (resp.showing_id === parseInt(movie.dataset.cardId)) {
                     let remain = movie.querySelector('.description')
-                    console.log(remain)
-                    remain.textContent -= 1
+                    let remainNum = parseInt(remain.innerText)
+                    remainNum -= 1
+                    remain.innerText = `${remainNum} remaining tickets`
                 }
             }
         }
     }
+
+    //function checkSoldOut(movies) {
+    //    for (let movie of movies) {
+    //        let remainingTickets = document.querySelector('.description')
+    //        let button = movie.
+    //        if (movie.capacity - movie.tickets_sold === 0)
+//
+    //    }
+    //}
 
 });
