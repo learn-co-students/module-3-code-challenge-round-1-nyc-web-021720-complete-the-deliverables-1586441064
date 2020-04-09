@@ -1,6 +1,10 @@
 const theatreId = 365
 const URL = "https://evening-plateau-54365.herokuapp.com/theatres/365"
 
+document.addEventListener('DOMContentLoaded', () => {
+    getData()
+})
+
 //fetch list of movies from URL
 //render list
 //add event listeners for buy button
@@ -22,7 +26,7 @@ const URL = "https://evening-plateau-54365.herokuapp.com/theatres/365"
     createCard = show => {
         const cardCode = `<div class="content">
         <div class="header">
-            ${show.film.html}
+            ${show.film.title}
         </div>
 
         <div class="meta">
@@ -56,8 +60,8 @@ const URL = "https://evening-plateau-54365.herokuapp.com/theatres/365"
         if (ticketCounter.innerText == 0) {
             button.outerHTML = "SOLD OUT!!"
         }
-      button.addEventListener("click", function(){
-          ticketCounter.innerText = tickeCounter.innerTExt -1
+      button.addEventListener("click", function() {
+          ticketCounter.innerText = tickeCounter.innerText -1
           if (ticketCounter.innerText == 0) {
             button.outerHTML = "SOLD OUT!!"
       }
@@ -80,6 +84,4 @@ const URL = "https://evening-plateau-54365.herokuapp.com/theatres/365"
         .then(json => json)
     }
     
-    document.addEventListener('DOMContentLoaded', () => {
-
-})
+    
