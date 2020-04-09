@@ -8,7 +8,13 @@ const movieList = document.querySelector('.showings')
 
     movieList.addEventListener('click',function(event){
         if(event.target.className==='ui blue button'){
-            console.log('clicked')
+            
+
+            let val = event.target.parentNode.parentNode.querySelector('.description').innerHTML           
+            val--
+            event.target.parentNode.parentNode.querySelector('.description').innerHTML = val
+            
+            updateTicket(event,val)
         }
     })
 
@@ -52,7 +58,8 @@ const movieList = document.querySelector('.showings')
         return div
     }
 
-    function updateTicket(event){
+    function updateTicket(event,val){
+        let more = event.parentNode.parentNode.querySelector('.description').innerHTML--
         let obj = {
             method: "PATCH",
             headers: {    
@@ -62,14 +69,14 @@ const movieList = document.querySelector('.showings')
            
             },    
             body: JSON.stringify({     
-              "likes": more    
+              "tickets_sold": more    
             })
 
         }
         
         
         
-        fetch('${THEATRES_URL}/${e.target.id}',obj )
+        fetch(THEATRES_URL+"/"+event.target.dataset.id , obj )
         .then(res => res.json())
         .then(function(data){
             
