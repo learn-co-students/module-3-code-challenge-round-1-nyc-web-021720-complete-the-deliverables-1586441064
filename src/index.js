@@ -44,11 +44,17 @@ const ticketsRemaining = show => {
 }
 
 //const buyTixBtn = document.getElementById('#button')
-showings.addEventListener('click', event => {
+document.addEventListener('click', event => {
   if (event.target.id === 'button') {
+    let description = 
+    let ticketsAvailable = document.querySelector('.description').textContent
     
-    let ticketAmt = ticketsRemaining()
-    console.log(ticketAmt)
+    let ticketAmt = parseInt(ticketsAvailable)
+    .innerHTML = `${ticketAmt - 1}`
+
+
+    // let ticketAmt = ticketsRemaining()
+    // console.log(ticketAmt)
   }
 })
 
