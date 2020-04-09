@@ -20,7 +20,6 @@ function createTicket(showingId){
 
     })
     .then(res=>res.json())
-    .then(json => console.log(json))
 }
 
 function renderShowings(theatre){
@@ -64,7 +63,10 @@ function renderShowings(theatre){
             e.preventDefault()
             if (showing.tickets_sold<showing.capacity){
                 createTicket(showing.id)
+                showingsDisplay.innerHTML=""
+                getTheatre().then(renderShowings)
             }else{
+                buyTicketsButton.className=""
                 buyTicketsButton.textContent= "Sold Out"
             }
             
