@@ -16,8 +16,7 @@ function fetchMovies() {
 function renderMovie(movie) {
 	let movieCard = document.createElement("div");
 	movieCard.className = "card";
-	console.log(movie);
-
+	movieCard.dataset.id = movie.id;
 	movieCard.innerHTML = `
         <div class="content">
             <div class="header">
@@ -41,22 +40,38 @@ function renderMovie(movie) {
 	moviesBody.appendChild(movieCard);
 }
 document.addEventListener("click", function (event) {
-	if (event.target.className === "ui blue bttn") {
-		console.log(event.target.parentNode);
-		let parent = event.target.parentNode;
-		let id = parent.dataset.id;
-		console.log(parent);
+	let card = document.querySelector(".card");
+	if (event.target.className === "ui blue button") {
+		let cardTicketLeft = card.querySelector(".description");
+		console.log(cardTicketLeft.parentNode);
+		let ticketLeft = cardTicketLeft.innerText;
+		let tickets = parseInt(ticketLeft);
+		tickets -= 1;
+		console.log(card.parentNode);
+		ticketLeft.innerText = `${tickets} remaining tickets`;
+		getTicket(card);
 	}
 });
 
-function getTicket(ticket) {
+// function buyTicket(showing) {
+// 	return fetch("https://evening-plateau-54365.herokuapp.com/tickets", {
+// 		method: "POST",
+// 		headers: {
+// 			"Content-Type": "application/json",
+// 			accept: "application/json",
+// 		},
+// 		body: JSON.stringify({ showing_id: `${showing.id}` }),
+// 	}).then((response) => response.json());
+// }
+
+function getTicket(showing) {
 	return fetch("https://evening-plateau-54365.herokuapp.com/tickets", {
 		method: "PATCH",
 		headers: {
 			"Content-Type": "application/json",
 			accept: "application/json",
 		},
-		body: JSON.stringify({ ticket }),
+		body: JSON.stringify({ showing_id: `${showing.id}` }),
 	}).then((response) => response.json());
 }
 
