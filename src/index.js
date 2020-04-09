@@ -81,3 +81,21 @@ function renderShowtime(showtime) {
 
     return showtimeCard
 }
+
+function clickHandler() { 
+    showtimesDiv.addEventListener("click", function(event) {
+        if (event.target.textContent === "Buy Ticket") {
+            fetch("https://evening-plateau-54365.herokuapp.com/tickets", {
+                method: "POST"}, 
+                headers: { 
+                    "content-type" : "application/json", 
+                    "accept" : "application/json"
+                },
+                body: JSON.stringify({
+                    showing_id: event.target.dataset.id
+                  })
+                }
+})
+}
+
+    
