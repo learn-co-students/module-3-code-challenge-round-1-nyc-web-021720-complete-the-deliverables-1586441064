@@ -14,6 +14,31 @@ document.addEventListener("DOMContentLoaded", (event => {
     }
 
     function renderTheater(theater) {
-        console.log(theater)
+        let showings = document.getElementsByClassName("ui cards showings")[0]
+        let cardDiv = document.createElement("div")
+
+        console.log(showings)
+        cardDiv.innerHTML = `
+        <div class="card">
+            <div class="content">
+                <div class="header">
+                ${theater.film.title}
+            </div>
+            <div class="meta">
+                ${theater.film.runtime} minutes
+            </div>
+            <div class="description">
+                ${theater.capacity - theater.tickets_sold} remaining tickets
+            </div>
+            <span class="ui label">
+                ${theater.showtime}
+            </span>
+            </div>
+            <div class="extra content">
+            <div class="ui blue button">Buy Ticket</div>
+            </div>
+        </div>
+        `
+        showings.append(cardDiv)
     }
 }))
