@@ -63,11 +63,17 @@ function displayMovieShowings(movie) {
   //buy button div
   const buyButton = document.createElement("div");
   buyButton.className = "ui blue button";
-  buyButton.innerText = "Buy Ticket";
-  //adding functionality to buyButton
-  buyButton.addEventListener("click", (e) => {
-    buyTicket(movie.id);
-  });
+  if (remainingTickets > 0) {
+    buyButton.innerText = "Buy Ticket";
+    //adding functionality to buyButton
+    buyButton.addEventListener("click", (e) => {
+      buyTicket(movie.id);
+    });
+  } else {
+    buyButton.innerText = "Sold Out";
+    buyButton.style.backgroundColor = "white";
+    buyButton.style.color = "black";
+  }
 
   //append button to extra content
   extraContent.appendChild(buyButton);
