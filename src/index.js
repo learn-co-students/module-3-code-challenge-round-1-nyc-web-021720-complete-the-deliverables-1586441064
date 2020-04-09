@@ -32,7 +32,9 @@
 
 const theatreId = 358;
 const showtimesUrl = "https://evening-plateau-54365.herokuapp.com/theatres/358"
-const showtimesDiv = document.getElementsByClassName("ui inverted red menu")
+const showtimesDiv = document.getElementsByTagName("div")[4]
+const showtimesDivUl = document.createElement("ul")
+showtimesDiv.append(showtimesDivUl)
 
 document.addEventListener("DOMContentLoaded", event => {
     fetchShowtimes()
@@ -47,7 +49,7 @@ function fetchShowtimes() {
             showtimes.showings.forEach(
                 (showtime) => {
                     let li = renderShowtime(showtime)
-                    showtimesDiv.append(li)
+                    showtimesDivUl.append(li)
                 })                    
 )}
 
@@ -75,11 +77,7 @@ function renderShowtime(showtime) {
                 <div class="ui blue button">Buy Ticket</div>
             </div>
         </div> 
-    `
-
-    let ul = document.createElement("ul")
-    ul.append(showtimeCard)
-    
+    ` 
 
     return showtimeCard
 }
