@@ -9,6 +9,7 @@ function getTheatre(){
 
 function renderShowings(theatre){
     const showings = theatre.showings
+    const showingsDisplay = document.getElementsByClassName("ui cards showings")[0]
 
     showings.forEach(showing => {
         const remainingTix =  showing.capacity - showing.tickets_sold
@@ -33,9 +34,9 @@ function renderShowings(theatre){
 
         const  showTime = document.createElement('span')
         showTime.className = "ui label"
-        showTime.textContent = showing.showTime
+        showTime.textContent = showing.showtime
 
-        showingContent.append(filmTitle,runTime,remainingTix,showTime)
+        showingContent.append(filmTitle,runTime,remainingTickets,showTime)
 
         const buyButtonDiv = document.createElement('div')
         buyButtonDiv.className = "extra content"
@@ -48,27 +49,11 @@ function renderShowings(theatre){
 
         showingCard.append(showingContent,buyButtonDiv)
 
+        showingsDisplay.appendChild(showingCard)
+
     });
 
 
 }
 
-<div class="card">
-  <div class="content">
-    <div class="header">
-      (Film Title)
-    </div>
-    <div class="meta">
-      (Runtime) minutes
-    </div>
-    <div class="description">
-      (Num Tickets) remaining tickets
-    </div>
-    <span class="ui label">
-      (Showtime)
-    </span>
-  </div>
-  <div class="extra content">
-    <div class="ui blue button">Buy Ticket</div>
-  </div>
-</div>
+getTheatre().then(renderShowings)
