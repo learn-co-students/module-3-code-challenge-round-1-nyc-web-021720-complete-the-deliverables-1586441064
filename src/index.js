@@ -1,19 +1,18 @@
 const theatreId = 363;
 const THEATRES_URL = "https://evening-plateau-54365.herokuapp.com/theatres/363";
-
+const moviesBody = document.querySelector("#ui cards showings");
 function fetchMovies() {
 	return fetch(THEATRES_URL)
 		.then((response) => response.json())
-		.then((movies) => {
-			console.log(movies);
-			movies.forEach(function (movie) {
+		.then((object) => {
+			let movies = Object.values(object.showings);
+			movies.forEach((movie) => {
 				renderMovie(movie);
 			});
 		});
 }
 
 function renderMovie(movie) {
-	console.log(movie);
 	let movieCard = document.createElement("div");
 	movieCard.className = "card";
 	console.log(movie);
@@ -21,13 +20,13 @@ function renderMovie(movie) {
 	movieCard.innerHTML = `
         <div class="content">
             <div class="header">
-                ${movie.title}
+                ${movie.film.title}
             </div>
             <div class="meta">
-                ${movie.runtime} minutes
+                ${movie.film.runtime} minutes
             </div>
             <div class="description">
-                ${movie.tickets} remaining tickets
+                ${movie.capacity - movie.tickets_sold} remaining tickets
             </div>
             <span class="ui label">
                 ${movie.showtime}
@@ -38,6 +37,7 @@ function renderMovie(movie) {
         </div>
         </div>
     `;
+	moviesBody.appendChild(movieCard);
 }
 
 fetchMovies();
