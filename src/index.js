@@ -41,7 +41,7 @@ function renderMovies(movie){
         ${movie.film.runtime} minutes
       </div>
       <div class="description">
-        ${movie.capacity-movie.tickets_sold} remaining tickets
+        ${movie.capacity-movie.tickets_sold}
       </div>
       <span class="ui label">
       ${movie.showtime}
@@ -62,14 +62,33 @@ function buyticket(){
 
 document.addEventListener("click",function(e){
     if(e.target.textContent==="Buy Ticket"){
-        console.dir(e.target)
-        let id=e.target.parentNode.parentNode.dataset.id
+        // console.dir(e.target)
+        let remaining=e.target.parentNode.parentNode.querySelector(".description")
+        let ticket=parseInt(remaining.innerText);
+        ticket--;
+        remaining.innerText=`${ticket} remaining ticket(s)`
         
-        fetch()
+        let id=e.target.parentNode.parentNode.dataset.id
 
-    }
-})
 
+        // console.dir(remaining)
+        fetch(`https://evening-plateau-54365.herokuapp.com/theatres/${theatreId}/${id}`,{
+            method: "PATCH",
+            headers:{
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({ticket})
+
+            })
+        }
+    })
 }
 
 
+
+
+
+function createtickets(){
+    
+}
